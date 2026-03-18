@@ -2996,6 +2996,18 @@ case "$1" in
         add_sources "dynix" "x86"
         ;;
 
+    *haiku-x86)
+        TARGET_AS="gcc -c"
+        TARGET_CC="gcc"
+        TARGET_NASM="nasm"
+        generate_gcc_opts "x86" "haiku"
+        TARGET_CCFLAGS="$OPTS_GCC -fno-pic -O3 -Wno-multichar"
+        TARGET_LIBS="-lnetwork"
+        TARGET_TARBALL="haiku-x86"
+        TARGET_DOCFILES="docs/readme.haiku"   #platform specific docfile
+        add_sources "haiku" "x86"
+        ;;
+
 ###### AMD 64
 
     *linux-amd64)               # generic. works everywhere
@@ -3050,6 +3062,19 @@ case "$1" in
         TARGET_DOCFILES="docs/readme._ix"   #platform specific docfile
         TARGET_TARBALL="macosx-amd64"
         add_sources "macosx" "amd64"
+        ;;
+
+    *haiku-amd64)               # HAVE_OGR must be set to 0
+        TARGET_AS="gcc -c"
+        TARGET_CC="gcc"
+        generate_gcc_opts "amd64" "haiku"
+        TARGET_NASM="nasm"
+        TARGET_NASM_FMT="elf64"
+        TARGET_CCFLAGS="$OPTS_GCC -O3 -Wno-multichar"
+        TARGET_LIBS="-lnetwork"
+        TARGET_TARBALL="haiku-amd64"
+        TARGET_DOCFILES="docs/readme.haiku"   #platform specific docfile
+        add_sources "haiku" "amd64"
         ;;
 
 ###### NeXT (x86, m68k, sparc, hppa)
@@ -3255,19 +3280,6 @@ case "$1" in
         TARGET_TARBALL="beos-ppc"
         TARGET_DOCFILES="docs/readme.beos"   #platform specific docfile
         add_sources "beos" "ppc"
-        ;;
-
-    *haiku-x86)
-        TARGET_AS="gcc -c"
-        TARGET_CC="gcc"
-        TARGET_NASM="nasm"
-        generate_gcc_opts "x86" "haiku"
-        TARGET_CCFLAGS="$OPTS_GCC -fno-pic -O3 -Wno-multichar"
-        TARGET_LDFLAGS="-static"
-        TARGET_LIBS="-lnetwork"
-        TARGET_TARBALL="haiku-x86"
-        TARGET_DOCFILES="docs/readme.haiku"   #platform specific docfile
-        add_sources "haiku" "x86"
         ;;
 
 ####### OS/2 (x86, emx)
